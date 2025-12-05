@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - SR FASHION HUB</title>
+
+    <style>
+        body {
+            background-color: black;
+            font-family: Arial;
+            color: gold;
+            padding: 40px;
+        }
+        .box {
+            max-width: 340px;
+            background: #111;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid gold;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .btn {
+            background: gold;
+            color: black;
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Admin Login</h2>
+
+<div class="box">
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <a href="#" class="btn" onclick="login()">Login</a>
+</div>
+
+<script>
+    function login() {
+        const u = document.getElementById("username").value;
+        const p = document.getElementById("password").value;
+
+        if (u === "admin" && p === "srhub123") {
+            localStorage.setItem("admin", "logged");
+            window.location.href = "dashboard.html";
+        } else {
+            alert("Incorrect Username or Password!");
+        }
+    }
+</script>
+
+</body>
+</html>
