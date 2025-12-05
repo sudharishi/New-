@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SR FASHION HUB</title>
+
+    <style>
+        body {
+            background: black;
+            color: gold;
+            font-family: Arial;
+            padding: 20px;
+        }
+        .box {
+            background: #111;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid gold;
+            border-radius: 10px;
+        }
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            border: 1px solid gold;
+        }
+        .product {
+            border-bottom: 1px solid gold;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">ADMIN DASHBOARD</h2>
+
+<div class="box">
+    <h3>How to Add New Products</h3>
+    <p>1️⃣ Go to your GitHub repo → <b>images/</b> → Upload photo</p>
+    <p>2️⃣ Copy the image name (example: <b>photo1.png</b>)</p>
+    <p>3️⃣ Go to <b>products.json</b> → Add like this:</p>
+
+<pre style="color:white; background:#222; padding:10px; border-radius:8px;">
+[
+  {
+    "name": "Smart Watch",
+    "price": 999,
+    "image": "watch1.png"
+  }
+]
+</pre>
+
+<p>4️⃣ Save → Website auto update.</p>
+</div>
+
+
+<div class="box">
+    <h3>All Products</h3>
+    <div id="productList"></div>
+</div>
+
+<div class="box">
+    <h3>Customer Orders</h3>
+    <div id="orders"></div>
+</div>
+
+<script>
+    async function loadProducts() {
+        const res = await fetch("products.json");
+        const products = await res.json();
+
+        const div = document.getElementById("productList");
+        div.innerHTML = "";
+
+        products.forEach(p => {
+            div.innerHTML += `
+                <div class="product">
+                    <img src="images/${p.image}">
+                    <b>${p.name}</b> - ₹${p.price}
+                </div>
+            `;
+        });
+    }
+
+    function loadOrders() {
+        const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+        const div = document.getElementById("orders");
+
+        div.innerHTML = "";
+
+        orders.forEach(o => {
+            div.innerHTML += `
+                <div class="product">
+                    <b>${o.product}</b> - ₹${o.price} <br>
+                    ${o.name} | ${o.phone} <br>
+                    ${o.address}, ${o.pincode} <br>
+                    <i>${o.time}</i>
+                </div>
+            `;
+        });
+    }
+
+    loadProducts();
+    loadOrders();
+</script>
+
+</body>
+</html>
